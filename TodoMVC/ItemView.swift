@@ -35,8 +35,6 @@ struct Item: View {
     @ObjectBinding var viewModel: TodoViewModel
     var item: TodoItem
     
-    @State private var isShowingAlert = false
-    
     var titleBinding: Binding<String> {
         Binding(
             getValue: {
@@ -69,8 +67,5 @@ struct Item: View {
         .background(Color.white)
             .frame(height: 60)
             .background(Color.white)
-            .presentation($isShowingAlert) {
-                Alert(title: Text("Important message"), message: Text("Wear sunscreen"), dismissButton: .default(Text("Got it!")))
-        }
     }
 }
