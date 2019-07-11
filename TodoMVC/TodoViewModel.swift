@@ -23,7 +23,7 @@ final class TodoViewModel: BindableObject {
     }
     var incompleteCount: Int = 0
     
-    @Published var items: [TodoItem] = [] {
+    var items: [TodoItem] = [] {
         didSet {
             self.incompleteCount = items.filter { !$0.isCompleted }.count
         }
