@@ -91,7 +91,7 @@ struct ContentView: View {
                                 }
                             }
                             .font(Font.caption)
-                                .animation(Animation.empty)
+                                .animation(nil)
                         }
                         .padding(.horizontal)
                     }

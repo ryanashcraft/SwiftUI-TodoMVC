@@ -16,11 +16,12 @@ struct TodoItem: Identifiable {
 }
 
 final class TodoViewModel: BindableObject {
-    var didChange = PassthroughSubject<TodoViewModel, Never>()
+    var willChange = PassthroughSubject<TodoViewModel, Never>()
     
     var areAllCompleted: Bool {
         self.items.count - self.incompleteCount == self.items.count
     }
+
     var incompleteCount: Int = 0
     
     var completeCount: Int = 0
@@ -33,16 +34,18 @@ final class TodoViewModel: BindableObject {
     }
     
     func createTodo(title: String) {
+        willChange.send(self)
+
         items.append(TodoItem(
             id: UUID(),
             isCompleted: false,
             title: title
         ))
-        
-        self.didChange.send(self)
     }
     
     func setIsCompleted(itemId: UUID, isCompleted: Bool) {
+        willChange.send(self)
+
         items = items.map {
             if $0.id == itemId {
                 return TodoItem(id: $0.id, isCompleted: isCompleted, title: $0.title)
@@ -50,11 +53,11 @@ final class TodoViewModel: BindableObject {
             
             return $0
         }
-        
-        self.didChange.send(self)
     }
     
     func setTitle(itemId: UUID, title: String) {
+        willChange.send(self)
+
         items = items.map {
             if $0.id == itemId {
                 return TodoItem(id: $0.id, isCompleted: $0.isCompleted, title: title)
@@ -62,11 +65,11 @@ final class TodoViewModel: BindableObject {
             
             return $0
         }
-        
-        self.didChange.send(self)
     }
     
     func toggleAllCompleted() {
+        willChange.send(self)
+
         if areAllCompleted {
             items = items.map {
                 return TodoItem(id: $0.id, isCompleted: false, title: $0.title)
@@ -76,20 +79,17 @@ final class TodoViewModel: BindableObject {
                 return TodoItem(id: $0.id, isCompleted: true, title: $0.title)
             }
         }
-        
-        self.didChange.send(self)
     }
     
     func removeItem(itemId: UUID) {
+        willChange.send(self)
+
         items = items.filter { $0.id != itemId }
-        
-        self.didChange.send(self)
     }
     
     func clearCompleted() {
+        willChange.send(self)
+
         items = items.filter { !$0.isCompleted }
-        
-        self.didChange.send(self)
     }
-    
 }
