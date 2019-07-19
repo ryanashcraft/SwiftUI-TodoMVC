@@ -19,13 +19,16 @@ final class TodoViewModel: BindableObject {
     var didChange = PassthroughSubject<TodoViewModel, Never>()
     
     var areAllCompleted: Bool {
-        self.items.count - self.incompleteCount == 0
+        self.items.count - self.incompleteCount == self.items.count
     }
     var incompleteCount: Int = 0
     
+    var completeCount: Int = 0
+    
     var items: [TodoItem] = [] {
         didSet {
-            self.incompleteCount = items.filter { !$0.isCompleted }.count
+            incompleteCount = items.filter { !$0.isCompleted }.count
+            completeCount = items.count - incompleteCount
         }
     }
     

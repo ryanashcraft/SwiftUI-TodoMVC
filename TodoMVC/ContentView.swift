@@ -82,9 +82,9 @@ struct ContentView: View {
                                 Text("Completed").tag(ItemStatusFilter.completed)
                             }
                             HStack {
-                                Text("\(self.viewModel.incompleteCount) item\(self.viewModel.incompleteCount == 1 ? "" : "s") left\(!self.viewModel.areAllCompleted ? "." : "")")
+                                Text("\(self.viewModel.incompleteCount) item\(self.viewModel.incompleteCount == 1 ? "" : "s") left\(self.viewModel.completeCount > 0 ? "." : "")")
                                     .foregroundColor(Color.gray)
-                                if !self.viewModel.areAllCompleted {
+                                if self.viewModel.completeCount > 0 {
                                     Button("Clear completed.", action: {
                                         self.viewModel.clearCompleted()
                                     })
