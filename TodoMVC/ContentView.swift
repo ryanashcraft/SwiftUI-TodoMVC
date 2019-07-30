@@ -51,11 +51,14 @@ struct ContentView: View {
                                             .padding()
                                     })
                                 }
-                                TextField(self.$newTitle, placeholder: Text("What needs to be done?"), onEditingChanged: { _ in }, onCommit: {
-                                    if !self.newTitle.isEmpty {
-                                        self.viewModel.createTodo(title: self.newTitle)
-                                        self.newTitle = ""
-                                    }
+                                TextField("What needs to be done?",
+                                          text: self.$newTitle,
+                                          onEditingChanged: { _ in },
+                                          onCommit: {
+                                            if !self.newTitle.isEmpty {
+                                                self.viewModel.createTodo(title: self.newTitle)
+                                                self.newTitle = ""
+                                            }
                                 })
                                     .padding(self.viewModel.items.isEmpty ? .horizontal : .trailing)
                                     .font(self.newTitle.isEmpty ? Font.body.italic() : Font.body)

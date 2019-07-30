@@ -51,7 +51,7 @@ struct Item: View {
             CompleteButton(isCompleted: self.item.isCompleted, action: {
                 self.viewModel.setIsCompleted(itemId: self.item.id, isCompleted: !self.item.isCompleted)
             })
-            TextField(titleBinding)
+            TextField("Title", text: titleBinding)
                 .padding(.vertical)
                 .background(Color.white)
                 .foregroundColor(self.item.isCompleted ? Color.gray : Color.black)
