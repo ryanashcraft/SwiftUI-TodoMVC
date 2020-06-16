@@ -122,7 +122,9 @@ struct ContentView: View {
                     filterControls
                 }
             }
+            .frame(maxWidth: 550, alignment: .center)
         }
+        .frame(maxWidth: .infinity)
         .background(
             Color(white: 0.96)
                 .edgesIgnoringSafeArea(.all)
